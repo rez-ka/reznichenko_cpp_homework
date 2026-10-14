@@ -1,1 +1,1 @@
-# reznichenko-algosy
+# reznichenko_cpp_homework
