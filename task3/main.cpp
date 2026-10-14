@@ -1,5 +1,9 @@
 #include <iostream>
 
+bool IsInBounds(int x, int y) {
+  return (x >= 0 && x <= 9 && y >= 0 && y <= 4);
+}
+
 bool CheckStrings(const char* s, const char* t) {
   int i = 0;
   while (s[i] != '\0' && t[i] != '\0') {
@@ -23,7 +27,7 @@ void Clear(char board[5][10]) {
 }
 
 bool Put(char board[5][10], int x, int y, char c) {
-  if (x >= 0 && x <= 9 && y >= 0 && y <= 4) {
+  if (IsInBounds(x, y)) {
     board[y][x] = c;
     return true;
   }
@@ -35,13 +39,15 @@ bool Text(char board[5][10], int x, int y, const char* s) {
   while (s[n] != '\0') {
     ++n;
   }
-  if (y >= 0 && y <= 4 && x >= 0 && x + n - 1 < 10) {
-    for (int i = 0; i < n; ++i) {
-      board[y][x + i] = s[i];
+  for (int i = 0; i < n; ++i) {
+    if (IsInBounds(x + i, y) == false) {
+      return false;
     }
-    return true;
   }
-  return false;
+  for (int i = 0; i < n; ++i) {
+    board[y][x + i] = s[i];
+  }
+  return true;
 }
 
 void Print(char board[5][10]) {
